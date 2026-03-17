@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KanbanX</title>
+    <!-- <link rel="stylesheet" href="./style.css" /> -->
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Kanban Board</h1>
+      </div>
+      <div>
+       <button type="button" id="addNewTask" class="add-new-task-btn">
+          Add New Task
+        </button>
+      </div>
+    </header>
+
+    <div id="takeTaskDiv" class="take-input take-task-visibility">
+      <div>
+        <label for="task-heading">Title</label>
+        <input class="clearValue" type="text" id="taskHeading" />
+      </div>
+      <div>
+        <label for="task-discription">Discription</label>
+        <textarea class="clearValue" id="taskDecription"> </textarea>
+      </div>
+      <div class="add-task-btn-div">
+        <button id="addTask">Add Task</button>
+      </div>
+    </div>
+
+    <section class="main-section">
+      <div class="main-container">
+        <div id="todoTemplate" class="template">
+          <div class="tt">
+            <div><h2>To Do</h2></div>
+            <div><span class="counter" id="totalCount">{{count}}</span></div>
+          </div>
+          <div class="tb">
+            <ul id="todoItems"></ul>
+          </div>
+        </div>
+
+        <div id="inProgress" class="template">
+          <div class="tt">
+            <div><h2>In Progress</h2></div>
+            <div><span class="counter">{{count}}</span></div>
+          </div>
+          <div class="tb">
+            <ul id="progressUl"></ul>
+          </div>
+        </div>
+
+        <div id="doneTemp" class="template">
+          <div class="tt">
+            <div><h2>Done</h2></div>
+            <div><span class="counter">{{count}}</span></div>
+          </div>
+          <div class="tb">
+            <ul id="doneTempUl"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

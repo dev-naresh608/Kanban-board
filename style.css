@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ── LIGHT THEME (default) ── */
+:root {
+  --bg: #f5f0eb;
+  --surface: #fffdf9;
+  --surface-raised: #ffffff;
+  --border: #e8e0d5;
+  --accent: #c17f45;
+  --accent-light: #f0e4d4;
+  --accent-hover: #a86a30;
+  --todo-col: #e8f0fe;
+  --todo-col-header: #4a6fa5;
+  --inprogress-col: #fff3e0;
+  --inprogress-col-header: #c17f45;
+  --done-col: #e8f5e9;
+  --done-col-header: #4a8c5c;
+  --text-primary: #2a2118;
+  --text-secondary: #7a6a58;
+  --text-muted: #b0a090;
+  --shadow-sm: 0 1px 3px rgba(60,40,10,0.08), 0 1px 2px rgba(60,40,10,0.05);
+  --shadow-md: 0 4px 12px rgba(60,40,10,0.10), 0 2px 6px rgba(60,40,10,0.07);
+  --shadow-lg: 0 8px 28px rgba(60,40,10,0.13), 0 4px 12px rgba(60,40,10,0.08);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(193,127,69,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(74,111,165,0.06) 0%, transparent 55%);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+h1, h2, h3, h4, ul, p { margin: 0; padding: 0; }
+
+/* ── HEADER ── */
+header {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  transition: color 0.35s ease;
+}
+
+/* right side of header wraps the toggle + add-task button */
+header > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* ── ADD TASK BUTTON ── */
+.add-new-task-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(193,127,69,0.28);
+  transition: background 0.18s, transform 0.13s, box-shadow 0.18s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.add-new-task-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(193,127,69,0.38);
+}
+
+.add-new-task-btn:active { transform: translateY(0); }
+
+/* ── MAIN LAYOUT ── */
+.main-section { padding: 2rem 1.5rem; }
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+/* ── COLUMNS ── */
+.template {
+  flex: 1;
+  min-width: 280px;
+  max-width: 380px;
+  min-height: 450px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.2s, background 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+}
+.template:hover { box-shadow: var(--shadow-lg); }
+
+.template.hover-over{
+  transition: all 0.7s ease;
+  transform: scale(1.07);
+  border: 2px dashed var(--text-primary);
+}
+/* Column header */
+.tt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+#todoTemplate > .tt      { background: var(--todo-col); }
+#inProgress   > .tt      { background: var(--inprogress-col); }
+#Done         > .tt      { background: var(--done-col); }
+
+.tt h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: color 0.35s ease;
+}
+
+#todoTemplate .tt h2    { color: var(--todo-col-header); }
+#inProgress   .tt h2    { color: var(--inprogress-col-header); }
+#Done         .tt h2    { color: var(--done-col-header); }
+
+/* Count badge */
+.tt span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.6);
+  color: var(--text-secondary);
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+
+
+
+/* Tasks list */
+.tb {
+  padding: 1rem;
+  flex-grow: 1;
+}
+.hideTask{
+  /* visibility: hidden; */
+  opacity: 0.3;
+}
+
+.tb ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+#todoListItem{
+  cursor: grab;
+}
+
+/* ── TASK CARD ── */
+.task-div {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.35s ease, border-color 0.35s ease;
+}
+.task-div:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.task-div h3 {
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.35s ease;
+}
+
+.discription-div p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  font-weight: 300;
+  transition: color 0.35s ease;
+}
+
+.task-div > div:last-child {
+  margin-top: 4px;
+  text-align: right;
+}
+
+.task-delete-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  letter-spacing: 0.03em;
+}
+.task-delete-btn:hover {
+  background: rgba(239,68,68,0.1);
+  color: #ef4444;
+  border-color: rgba(239,68,68,0.3);
+}
+
+/* ── ADD TASK MODAL ── */
+.take-input {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.97);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(193,127,69,0.08);
+  z-index: 100;
+  animation: popIn 0.2s ease forwards;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.take-task-visibility { display: none !important; }
+
+.take-input label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color 0.35s ease;
+}
+
+.take-input input,
+.take-input textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.35s ease, color 0.35s ease;
+  resize: vertical;
+}
+.take-input input:focus,
+.take-input textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(193,127,69,0.12);
+}
+
+.take-input > div:not(.add-task-btn-div) {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.add-task-btn-div { text-align: right; }
+
+#addTask {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.4rem;
+  border-radius: 50px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(193,127,69,0.25);
+  transition: background 0.15s, transform 0.12s;
+}
+#addTask:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+body.modal-open::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 99;
+}
+
+@media (max-width: 768px) {
+  .main-container { flex-direction: column; align-items: center; }
+  .template { max-width: 100%; width: 100%; }
+  header { padding: 0.85rem 1rem; }
+}
